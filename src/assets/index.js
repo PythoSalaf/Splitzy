@@ -1,0 +1,5 @@
+import Heroicon from "./heroicon.png";
+import Bgslide from "./bgslide.jpg";
+import Bgslides from "./bgslides.jpg";
+
+export { Heroicon, Bgslide, Bgslides };
