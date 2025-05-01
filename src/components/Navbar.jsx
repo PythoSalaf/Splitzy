@@ -6,10 +6,12 @@ const Navbar = () => {
   return (
     <div className="bg-white shadow fixed py-3 flex items-center w-full">
       <div className="w-[96%] md:w-[92%] mx-auto flex items-center justify-between">
-        <Link className="">Splitzy</Link>
+        <Link className="text-xl font-semibold md:text-2xl lg:text-3xl text-green-700">
+          Splitzy
+        </Link>
         <div className="hidden md:flex items-center gap-x-8">
           <NavLink>Home</NavLink>
-          <NavLink>Home</NavLink>
+          <NavLink to="/dashboard">Dashboard</NavLink>
           <NavLink>Home</NavLink>
           <NavLink>Home</NavLink>
         </div>

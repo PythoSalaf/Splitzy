@@ -1,5 +1,5 @@
 import React from "react";
-import { Bgslide, Heroicon } from "../assets";
+import { Bgslide, Heroicon, Step } from "../assets";
 
 const Home = () => {
   const splitSteps = [
@@ -123,7 +123,7 @@ const Home = () => {
             </p>
             {experienceCelo.map((item, index) => (
               <div
-                className="flex items-start py-2 gap-x-2 md:gap-x-4 px-1.5 md:px-3 rounded-md mb-3 bg-white text-black"
+                className="flex items-start py-2 gap-x-2 md:gap-x-4 px-1.5 md:px-3 rounded-md mb-5 bg-white text-black"
                 key={item.id}
               >
                 <div className="bg-green-800 rounded-full w-7 h-7 md:w-9 md:h-9 flex items-center justify-center">
@@ -132,15 +132,35 @@ const Home = () => {
                   </h2>
                 </div>
                 <div className="">
-                  <h4 className="font-semibold text-green-800 text-lg md:text-xl">
+                  <h4 className="font-semibold text-green-800 text-base md:text-xl">
                     {item.title}
                   </h4>
-                  <p className="text-sm md:text-lg">{item.description}</p>
+                  <p className=" text-sm md:text-base">{item.description}</p>
                 </div>
               </div>
             ))}
           </div>
-          <div className="w-full"></div>
+          <div className="w-full flex items-center  justify-center">
+            <img src={Step} alt="" className="w-[90%] mx-auto" />
+          </div>
+        </div>
+      </section>
+
+      <section className="w-full my-9 py-5">
+        <div className="">
+          <h3 className="text-center text-2xl md:text-3xl text-green-800">
+            Ready to start splitting bills with ease?
+          </h3>
+          <p className="text-center text-base md:text-lg mt-4 ">
+            Join thousands of users who are already enjoying hassle-free expense{" "}
+            <br />
+            splitting with Splitzy
+          </p>
+          <div className="flex items-center justify-center w-full mt-8">
+            <button className="bg-green-800 text-white px-5 py-2 rounded-md">
+              Get Started
+            </button>
+          </div>
         </div>
       </section>
     </>
