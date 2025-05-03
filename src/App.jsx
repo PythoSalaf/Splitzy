@@ -28,7 +28,9 @@ function App() {
               <DashboardLayout />
             </ProtectedRoute>
           }
-        ></Route>
+        >
+          <Route index element={<Dashboard />} />
+        </Route>
 
         <Route
           path="/groups"
