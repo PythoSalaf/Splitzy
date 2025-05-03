@@ -1,6 +1,6 @@
 const Groups = () => {
   return (
-    <div>
+    <div className="w-[96%] md:w-[95%] mx-auto py-4">
       <h2>Groups</h2>
     </div>
   );
