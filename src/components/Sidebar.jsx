@@ -1,16 +1,18 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { MdDashboard, MdHistory } from "react-icons/md";
 import { FaUserGroup } from "react-icons/fa6";
 import { ImCoinDollar } from "react-icons/im";
 import { GrSettingsOption } from "react-icons/gr";
 import { PiWalletFill } from "react-icons/pi";
+import { AppContext } from "../context/AppContext";
 
 const Sidebar = () => {
-  const walletAddress = "0x1234567890abcdef1234567890abcdef12345678";
+  const { account, disconnectWallet } = useContext(AppContext);
 
   const truncateAddress = (address) => {
     if (!address) return "";
-    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+    return `${address.slice(0, 6)}.......${address.slice(-4)}`;
   };
 
   const active =
@@ -71,12 +73,15 @@ const Sidebar = () => {
             Connected Wallet
           </h4>
           <p className="text-sm text-gray-600 font-semibold">
-            {truncateAddress(walletAddress)}
+            {truncateAddress(account)}
           </p>
         </div>
       </div>
       <div className="w-full mx-auto mt-7">
-        <button className="bg-green-900 hover:bg-green-600 text-white font-semibold w-full py-1 rounded-md cursor-pointer">
+        <button
+          className="bg-green-900 hover:bg-green-600 text-white font-semibold w-full py-1 rounded-md cursor-pointer"
+          onClick={disconnectWallet}
+        >
           Disconnect
         </button>
       </div>
