@@ -8,7 +8,6 @@ import {
   FaPlane,
   FaLaptop,
   FaCar,
-  FaUserFriends,
 } from "react-icons/fa";
 import { HiChevronRight } from "react-icons/hi";
 
