@@ -6,4 +6,7 @@ export { default as Groups } from "./Groups";
 export { default as Payments } from "./Payments";
 export { default as Activity } from "./Activity";
 export { default as Settings } from "./Settings";
+export { default as GroupDetails } from "./GroupDetails";
+export { default as CreateGroup } from "./CreateGroup";
+export { default as AddExpenses } from "./AddExpenses";
 export { default as ErrorPage } from "./ErrorPage";

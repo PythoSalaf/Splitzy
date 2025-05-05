@@ -1,9 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import {
   Activity,
+  CreateGroup,
   Dashboard,
   DashboardLayout,
   ErrorPage,
+  GroupDetails,
   Groups,
   Home,
   Layout,
@@ -41,6 +43,8 @@ function App() {
           }
         >
           <Route index element={<Groups />} />
+          <Route path="/groups/:id" element={<GroupDetails />} />
+          <Route path="/groups/create-group" element={<CreateGroup />} />
         </Route>
 
         <Route

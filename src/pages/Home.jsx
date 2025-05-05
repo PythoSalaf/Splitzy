@@ -5,7 +5,7 @@ const Home = () => {
   const splitSteps = [
     {
       id: 1,
-      title: "Create Plans",
+      title: "Create Groups",
       description:
         "Organize expenses by Creating Plans for roomates, trips, events or any shared expenses",
       icon: "",
@@ -33,7 +33,7 @@ const Home = () => {
     },
     {
       id: 2,
-      title: "Create or join Plans",
+      title: "Create or join Groups",
       description:
         "Set up expenses plans and invite friends via email or wallet address.",
     },
@@ -118,7 +118,7 @@ const Home = () => {
               Experience Splitzy in Action
             </h3>
             <p className="my-5">
-              See how easy it is to create plans, add expenses, and settle up
+              See how easy it is to create groups, add expenses, and settle up
               with friends using Celo Stablecoin
             </p>
             {experienceCelo.map((item, index) => (
