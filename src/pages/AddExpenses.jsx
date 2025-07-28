@@ -1,37 +1,62 @@
-import React, { useState } from "react";
+import { useState, useContext } from "react";
 import { toast } from "react-toastify";
+import { AppContext } from "../context/AppContext";
+import { ethers } from "ethers";
 
 const AddExpenses = ({ groupId, members, onClose }) => {
-  const [description, setDescription] = useState("");
-  const [amount, setAmount] = useState("");
+  const { createBill } = useContext(AppContext);
+  const [title, setTitle] = useState("");
+  const [totalAmount, setTotalAmount] = useState("");
 
   const handleAddExpense = async () => {
-    const trimmedDescription = description.trim();
-    const totalAmount = parseFloat(amount);
+    const trimmedTitle = title.trim();
+    const parsedTotalAmount = parseFloat(totalAmount);
 
-    if (!trimmedDescription || isNaN(totalAmount) || totalAmount <= 0) {
-      toast.error("Please enter a valid description and amount");
+    if (!trimmedTitle) {
+      toast.error("Please enter a valid title");
+      return;
+    }
+    if (isNaN(parsedTotalAmount) || parsedTotalAmount <= 0) {
+      toast.error("Please enter a valid positive amount");
+      return;
+    }
+    if (!members?.length || members.some((addr) => !ethers.isAddress(addr))) {
+      toast.error("Invalid group members");
+      return;
+    }
+    if (!groupId || typeof groupId !== "string" || !/^\d+$/.test(groupId)) {
+      toast.error("Invalid group ID");
       return;
     }
 
-    const share = parseFloat((totalAmount / members.length).toFixed(2));
-    const payees = members;
+    // Calculate equal shares in CELO
+    const share = parseFloat((parsedTotalAmount / members.length).toFixed(2));
     const amounts = members.map(() => share);
+    // Adjust last amount to account for rounding
+    const totalShares = parseFloat((share * members.length).toFixed(2));
+    if (totalShares !== parsedTotalAmount) {
+      amounts[amounts.length - 1] = parseFloat(
+        (parsedTotalAmount - share * (members.length - 1)).toFixed(2)
+      );
+    }
+
+    const billData = {
+      groupId: groupId.toString(),
+      title: trimmedTitle,
+      totalAmount: parsedTotalAmount.toString(),
+      payees: members.map((addr) => addr.toLowerCase()),
+      amounts: amounts.map((a) => a.toString()),
+    };
+
+    console.log("Adding expense with payload:", billData);
 
     try {
-      // 🔧 MOCKING submission
-      console.log("Mock expense added:", {
-        groupId,
-        description: trimmedDescription,
-        payees,
-        amounts,
-      });
-
-      toast.success("Expense added successfully! (mocked)");
+      await createBill(billData);
+      toast.success("Expense added successfully");
       onClose();
     } catch (err) {
-      console.error(err);
-      toast.error("Failed to add expense");
+      console.error("Add expense error:", err);
+      toast.error(`Failed to add expense: ${err.message}`);
     }
   };
 
@@ -42,22 +67,25 @@ const AddExpenses = ({ groupId, members, onClose }) => {
 
         <input
           type="text"
-          placeholder="Description"
+          placeholder="Title (e.g., Beach House Rental)"
           className="w-full mb-3 px-3 py-2 border rounded"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
 
         <input
           type="number"
           placeholder="Total Amount"
           className="w-full mb-3 px-3 py-2 border rounded"
-          value={amount}
-          onChange={(e) => setAmount(e.target.value)}
+          value={totalAmount}
+          onChange={(e) => setTotalAmount(e.target.value)}
+          min="0"
+          step="0.01"
         />
 
         <p className="text-sm text-gray-600 mb-4">
-          This expense will be shared equally among all members.
+          This expense will be shared equally among all {members?.length || 0}{" "}
+          members.
         </p>
 
         <div className="mt-5 flex justify-end gap-3">
