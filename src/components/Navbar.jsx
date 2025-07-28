@@ -252,7 +252,7 @@ const Navbar = () => {
                 <div className="w-full mt-5">
                   <appkit-button
                     label="Connect Wallet"
-                    class="w-full bg-green-900 text-white rounded-lg py-1"
+                    class="w-full text-white"
                   />
                 </div>
               )}
